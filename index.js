@@ -13,40 +13,40 @@ const questions = [
   { id: 4, text: "I get a sense of satisfaction from a perfectly balanced budget and ensuring every transaction is transparently recorded.", dominant: 'Finance', average: ['Logistics'], less: ['Academics'] },
   { id: 5, text: "I love the energy of a live performance, a big game, or any event with a large, enthusiastic audience.", dominant: 'Sports & Talent', average: ['Publicity'], less: ['Community Development'] },
   { id: 6, text: "I'm the person who takes out their phone to capture the perfect group photo or a memorable moment at an event.", dominant: 'Documentation', average: ['Publicity', 'Sports & Talent'], less: ['Creatives & Technical'] },
-  { id: 7, text: "I enjoy mentoring and guiding younger students to help them grow into future leaders within the organization.", dominant: 'Community Development', average: ['Academics'], less: ['External Affairs'] },
-  { id: 8, text: "When I use a well-designed website or app, my mind immediately goes to how it was built and the logic behind it.", dominant: 'Technology Development', average: ['Creatives & Technical'], less: ['Academics'] },
-  { id: 9, text: "I'm meticulous about tracking physical assets, making sure all equipment is accounted for, returned, and in good condition.", dominant: 'Logistics', average: ['Finance'], less: ['Creatives & Technical'] },
+  { id: 7, text: "I enjoy mentoring and guiding other people to help them grow into future leaders.", dominant: 'Community Development', average: ['Academics'], less: ['External Affairs'] },
+  { id: 8, text: "When I use a well-designed website or app, my first thought is about how it was built and the logic behind it.", dominant: 'Technology Development', average: ['Creatives & Technical'], less: ['Academics'] },
+  { id: 9, text: "I'm careful about keeping track of things and making sure they’re returned in good condition.", dominant: 'Logistics', average: ['Finance'], less: ['Creatives & Technical'] },
   { id: 10, text: "I am competitive and enjoy activities that involve strategy, teamwork, and a clear winner.", dominant: 'Sports & Talent', average: ['Academics'], less: ['Logistics'] },
   { id: 11, text: "The idea of building a complete visual identity for a project logo, colors, and theme from scratch is appealing to me.", dominant: 'Creatives & Technical', average: ['External Affairs'], less: ['Finance'] },
   { id: 12, text: "I'm comfortable starting conversations with new people, especially if it's to represent my group or organization.", dominant: 'External Affairs', average: ['Community Development'], less: ['Publicity'] },
   { id: 13, text: "I am drawn to learning about academic subjects in-depth, even if they aren't directly related to my required courses.", dominant: 'Academics', average: ['Technology Development'], less: ['Community Development'] },
-  { id: 14, text: "During a live event, I enjoy managing the 'behind-the-scenes' flow, like coordinating volunteers and ensuring the schedule runs smoothly.", dominant: 'Logistics', average: ['Community Development'], less: ['Documentation'] },
+  { id: 14, text: "I love being behind the scenes like coordinating people and keeping the event running smoothly.", dominant: 'Logistics', average: ['Community Development'], less: ['Documentation'] },
   { id: 15, text: "I believe providing outlets for expression like sports, music, or art is essential for a balanced community.", dominant: 'Sports & Talent', average: ['Community Development', 'Creatives & Technical'], less: ['Finance'] },
-  { id: 16, text: "When a message needs to be shared, I focus on finding the exact right words for an announcement or caption to make it engaging.", dominant: 'Publicity', average: ['Documentation'], less: ['External Affairs'] },
+  { id: 16, text: "When a message needs to be shared, I focus on finding the exact right words for caption or announcement to make it engaging.", dominant: 'Publicity', average: ['Documentation'], less: ['External Affairs'] },
   { id: 17, text: "I am most motivated when my work directly contributes to the well-being and growth of our community members.", dominant: 'Community Development', average: ['Academics'], less: ['External Affairs'] },
-  { id: 18, text: "When I encounter a repetitive manual task, my first thought is often, 'How could I automate this with a script or a tool?'", dominant: 'Technology Development', average: ['Logistics'], less: ['Community Development'] },
+  { id: 18, text: "I often think, ‘There has to be a smarter way to do this,’ and I enjoy building a tool or script to solve that inefficiency.", dominant: 'Technology Development', average: ['Logistics'], less: ['Community Development'] },
   { id: 19, text: "I am comfortable with the responsibility of handling money and keeping precise records.", dominant: 'Finance', average: ['Logistics'], less: ['External Affairs'] },
   { id: 20, text: "When I'm at an event, I notice the sound quality, the lighting, and how smoothly the technical aspects are running.", dominant: 'Creatives & Technical', average: ['Logistics'], less: ['Sports & Talent'] },
-  { id: 21, text: "I believe maintaining a consistent brand voice and image across all communications is crucial for an organization's identity.", dominant: 'Publicity', average: ['External Affairs'], less: ['Creatives & Technical'] },
-  { id: 22, text: "My interest lies in planning events that are specifically designed to help people connect and build a stronger sense of community.", dominant: 'Community Development', average: ['Sports & Talent', 'Logistics'], less: ['Documentation'] },
+  { id: 21, text: "I like making sure everything looks and sounds consistent so people recognize the brand.", dominant: 'Publicity', average: ['External Affairs'], less: ['Creatives & Technical'] },
+  { id: 22, text: "I enjoy organizing events that bring people together and build bonds.", dominant: 'Community Development', average: ['Sports & Talent', 'Logistics'], less: ['Documentation'] },
   { id: 23, text: "I find it rewarding to explain a difficult concept to someone and help them finally understand it through a tutorial or study session.", dominant: 'Academics', average: ['Community Development'], less: ['Technology Development'] },
-  { id: 24, text: "When planning an event, my first thought is 'Where can we find funding and who can we partner with?'", dominant: 'External Affairs', average: ['Finance'], less: ['Logistics'] },
-  { id: 25, text: "I'm interested in helping organize practical skill-building activities like training sessions, workshops, or tournaments.", dominant: 'Sports & Talent', average: ['Community Development'], less: ['Technology Development'] },
+  { id: 24, text: "When I plan a hangout with friends, I first think about the budget and who to invite.", dominant: 'External Affairs', average: ['Finance'], less: ['Logistics'] },
+  { id: 25, text: "I enjoy helping organize training, workshops, or tournaments that develop people’s practical skills and passions.", dominant: 'Sports & Talent', average: ['Community Development'], less: ['Technology Development'] },
   { id: 26, text: "When I see a great graphic design or a beautiful poster, I get inspired to create something artistic myself.", dominant: 'Creatives & Technical', average: ['Publicity'], less: ['Documentation'] },
   { id: 27, text: "Before planning a project, I think it's critical to first gather feedback from members to understand what they truly need.", dominant: 'Community Development', average: ['Academics'], less: ['Documentation'] },
   { id: 28, text: "The idea of a competitive hackathon or a programming contest excites me.", dominant: 'Academics', average: ['Technology Development'], less: ['Sports & Talent'] },
   { id: 29, text: "I'm good at finding and sourcing the physical materials or supplies needed for a project, ensuring we have everything on time.", dominant: 'Logistics', average: ['Finance'], less: ['Technology Development'] },
   { id: 30, text: "When it comes to fundraising, I tend to brainstorm ideas that are not just profitable but also fun and engaging for participants.", dominant: 'Finance', average: ['Community Development'], less: ['Sports & Talent'] },
-  { id: 31, text: "For me, the goal of event coverage isn't just taking pictures, but curating them into a polished album or video that tells a story.", dominant: 'Documentation', average: ['Publicity'], less: ['Creatives & Technical'] },
-  { id: 32, text: "I'm willing to take the lead in formal negotiations to represent my group's interests with sponsors or other organizations.", dominant: 'External Affairs', average: ['Finance'], less: ['Publicity', 'Logistics'] },
+  { id: 31, text: "I believe a picture is worth a thousand words, and I enjoy telling a complete story through a series of photos or a video.", dominant: 'Documentation', average: ['Publicity'], less: ['Creatives & Technical'] },
+  { id: 32, text: "I am good at negotiating and formally representing a group's interests to an outside party, like a sponsor or another organization.", dominant: 'External Affairs', average: ['Finance'], less: ['Publicity', 'Logistics'] },
   { id: 33, text: "I’m the person my friends come to for help with their computer problems or tech-related questions.", dominant: 'Technology Development', average: ['Community Development'], less: ['Logistics', 'Academics'] },
-  { id: 34, text: "I think it's important to create clear financial reports that help everyone in the organization understand its financial health.", dominant: 'Finance', average: ['External Affairs'], less: ['Academics'] },
+  { id: 34, text: "I enjoy making a budget tracker to see where money comes from and where it goes.", dominant: 'Finance', average: ['External Affairs'], less: ['Academics'] },
   { id: 35, text: "After an event, I feel a responsibility to organize raw photos and edit videos into a polished final album or highlight reel.", dominant: 'Documentation', average: ['Technology Development'], less: ['Logistics'] },
-  { id: 36, text: "I’m comfortable drafting a formal proposal and reaching out to a company to ask for sponsorship.", dominant: 'External Affairs', average: ['Finance'], less: ['Publicity'] },
-  { id: 37, text: "I enjoy the process of researching a complex topic and structuring that information into an easy-to-understand summary for others.", dominant: 'Academics', average: ['Documentation'], less: ['Sports & Talent'] },
-  { id: 38, text: "I believe in keeping a thorough archive. I'd enjoy organizing past photos and records to preserve our organization's history.", dominant: 'Documentation', average: ['Logistics'], less: ['Community Development'] },
-  { id: 39, text: "I'm naturally curious about social media data (likes, shares, comments) and what it says about the content we create.", dominant: 'Publicity', average: ['Finance'], less: ['External Affairs', 'Academics'] },
-  { id: 40, text: "When planning an event, I'm most interested in developing the promotional timeline like what to post, where, and when.", dominant: 'Publicity', average: ['Creatives & Technical'], less: ['Finance'] },
+  { id: 36, text: "I enjoy looking for opportunities by writing proposals and connecting with companies", dominant: 'External Affairs', average: ['Finance'], less: ['Publicity'] },
+  { id: 37, text: "I enjoy researching a complex topic and summarizing it into an easy-to-understand presentation or article for others.", dominant: 'Academics', average: ['Documentation'], less: ['Sports & Talent'] },
+  { id: 38, text: "I enjoy organizing photos and records so we don’t lose our group’s memories", dominant: 'Documentation', average: ['Logistics'], less: ['Community Development'] },
+  { id: 39, text: "I enjoy analyzing social media engagement (likes, shares, comments) to understand what content performs best.", dominant: 'Publicity', average: ['Finance'], less: ['External Affairs', 'Academics'] },
+  { id: 40, text: "I enjoy planning posts to get the right attention at the right time.", dominant: 'Publicity', average: ['Creatives & Technical'], less: ['Finance'] },
 ];
 
 const committeeDescriptions = {
@@ -70,8 +70,8 @@ const SCORE_MAP = {
   5: { dominant: 5, average: 3, less: 1 }, // Strongly Agree
   4: { dominant: 3, average: 2, less: 0 }, // Agree
   3: { dominant: 1, average: 0, less: 0 }, // Neutral
-  2: { dominant: 0, average: 0, less: 0 }, // Disagree
-  1: { dominant: 0, average: 0, less: 0 }, // Strongly Disagree
+  2: { dominant: -1, average: 0, less: 0 }, // Disagree
+  1: { dominant: -2, average: -1, less: 0 }, // Strongly Disagree
 };
 
 const QUESTIONS_PER_PAGE = 7;
