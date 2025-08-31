@@ -7,46 +7,46 @@ const COMMITTEES = [
 ];
 
 const questions = [
-   { id: 1, text: "I often find myself thinking about color schemes, fonts, and layouts for posters or social media posts.", dominant: 'Creatives & Technical', average: ['Publicity'], less: ['Technology Development'] },
+  { id: 1, text: "I often find myself thinking about color schemes, fonts, and layouts for posters or social media posts.", dominant: 'Creatives & Technical', average: ['Publicity', 'Documentation'], less: ['Technology Development'] },
   { id: 2, text: "My friends would describe me as the 'planner' of the group, organizing the schedule, venue, and physical needs for a trip or get-together.", dominant: 'Logistics', average: ['External Affairs'], less: ['Sports & Talent'] },
   { id: 3, text: "I'm fascinated by new technologies and how they can be used to improve how an organization operates.", dominant: 'Technology Development', average: ['Academics'], less: ['Logistics'] },
   { id: 4, text: "I get a sense of satisfaction from a perfectly balanced budget and ensuring every transaction is transparently recorded.", dominant: 'Finance', average: ['Logistics'], less: ['Academics'] },
-  { id: 5, text: "I love the energy of a live performance, a big game, or any event with a large, enthusiastic audience.", dominant: 'Sports & Talent', average: ['Publicity'], less: ['Community Development'] },
+  { id: 5, text: "I love the energy of a live performance, a big game, or any event with a large, enthusiastic audience.", dominant: ['Sports & Talent','Documentation'], average: ['Publicity', 'Creatives & Technical'], less: ['Community Development'] },
   { id: 6, text: "I'm the person who takes out their phone to capture the perfect group photo or a memorable moment at an event.", dominant: 'Documentation', average: ['Publicity', 'Sports & Talent'], less: ['Creatives & Technical'] },
-  { id: 7, text: "I enjoy mentoring and guiding other people to help them grow into future leaders.", dominant: 'Community Development', average: ['Academics'], less: ['External Affairs'] },
+  { id: 7, text: "I enjoy mentoring and guiding other people to help them grow into future leaders.", dominant: 'Academics', average: ['Community Development'], less: ['External Affairs','Sports & Talent'] },
   { id: 8, text: "When I use a well-designed website or app, my first thought is about how it was built and the logic behind it.", dominant: 'Technology Development', average: ['Creatives & Technical'], less: ['Academics'] },
   { id: 9, text: "I'm careful about keeping track of things and making sure they’re returned in good condition.", dominant: 'Logistics', average: ['Finance'], less: ['Creatives & Technical'] },
   { id: 10, text: "I am competitive and enjoy activities that involve strategy, teamwork, and a clear winner.", dominant: 'Sports & Talent', average: ['Academics'], less: ['Logistics'] },
   { id: 11, text: "The idea of building a complete visual identity for a project logo, colors, and theme from scratch is appealing to me.", dominant: 'Creatives & Technical', average: ['External Affairs'], less: ['Finance'] },
-  { id: 12, text: "I'm comfortable starting conversations with new people, especially if it's to represent my group or organization.", dominant: 'External Affairs', average: ['Community Development'], less: ['Publicity'] },
+  { id: 12, text: "I'm comfortable starting conversations with new people, especially if it's to represent my group or organization.", dominant: 'External Affairs', average: ['Publicity'], less: ['Community Development'] },
   { id: 13, text: "I am drawn to learning about academic subjects in-depth, even if they aren't directly related to my required courses.", dominant: 'Academics', average: ['Technology Development'], less: ['Community Development'] },
   { id: 14, text: "I love being behind the scenes like coordinating people and keeping the event running smoothly.", dominant: 'Logistics', average: ['Community Development'], less: ['Documentation'] },
-  { id: 15, text: "I believe providing outlets for expression like sports, music, or art is essential for a balanced community.", dominant: 'Sports & Talent', average: ['Community Development', 'Creatives & Technical'], less: ['Finance'] },
+  { id: 15, text: "I believe providing outlets for expression like sports, music, or art is essential for a balanced community.", dominant: 'Sports & Talent', average: ['External Affairs', 'Creatives & Technical', 'Documentation', 'Publicity'], less: ['Finance'] },
   { id: 16, text: "When a message needs to be shared, I focus on finding the exact right words for caption or announcement to make it engaging.", dominant: 'Publicity', average: ['Documentation'], less: ['External Affairs'] },
-  { id: 17, text: "I am most motivated when my work directly contributes to the well-being and growth of our community members.", dominant: 'Community Development', average: ['Academics'], less: ['External Affairs'] },
+  { id: 17, text: "I am most motivated when my work directly contributes to the well-being and growth of our community members.", dominant: 'Community Development', average: ['Academics', 'Sports & Talent'], less: ['External Affairs'] },
   { id: 18, text: "I often think, ‘There has to be a smarter way to do this,’ and I enjoy building a tool or script to solve that inefficiency.", dominant: 'Technology Development', average: ['Logistics'], less: ['Community Development'] },
   { id: 19, text: "I am comfortable with the responsibility of handling money and keeping precise records.", dominant: 'Finance', average: ['Logistics'], less: ['External Affairs'] },
-  { id: 20, text: "When I'm at an event, I notice the sound quality, the lighting, and how smoothly the technical aspects are running.", dominant: 'Creatives & Technical', average: ['Logistics'], less: ['Sports & Talent'] },
-  { id: 21, text: "I like making sure everything looks and sounds consistent so people recognize the brand.", dominant: 'Publicity', average: ['External Affairs'], less: ['Creatives & Technical'] },
-  { id: 22, text: "I enjoy organizing events that bring people together and build bonds.", dominant: 'Community Development', average: ['Sports & Talent', 'Logistics'], less: ['Documentation'] },
-  { id: 23, text: "I find it rewarding to explain a difficult concept to someone and help them finally understand it through a tutorial or study session.", dominant: 'Academics', average: ['Community Development'], less: ['Technology Development'] },
-  { id: 24, text: "When I plan a hangout with friends, I first think about the budget and who to invite.", dominant: 'External Affairs', average: ['Finance'], less: ['Logistics'] },
+  { id: 20, text: "When I'm at an event, I notice the sound quality, the lighting, and how smoothly the technical aspects are running.", dominant: 'Creatives & Technical', average: ['Logistics'], less: ['Technology Development'] },
+  { id: 21, text: "I like making sure everything looks and sounds consistent so people recognize the brand.", dominant: ['Publicity','Creatives & Technical'], average: ['External Affairs', 'Technology Development'] },
+  { id: 22, text: "I enjoy organizing events that bring people together and build bonds.", dominant: 'Community Development', average: ['Sports & Talent', 'Logistics', 'Documentation'] },
+  { id: 23, text: "I find it rewarding to explain a difficult concept to someone and help them finally understand it through a tutorial or study session.", dominant: 'Academics', average: ['Community Development'], less: ['Technology Development', 'Finance'] },
+  { id: 24, text: "When I plan a hangout with friends, I first think about the budget and who to invite.", dominant: 'External Affairs', average: ['Finance'], less: ['Logistics', 'Creatives & Technical'] },
   { id: 25, text: "I enjoy helping organize training, workshops, or tournaments that develop people’s practical skills and passions.", dominant: 'Sports & Talent', average: ['Community Development'], less: ['Technology Development'] },
   { id: 26, text: "When I see a great graphic design or a beautiful poster, I get inspired to create something artistic myself.", dominant: 'Creatives & Technical', average: ['Publicity'], less: ['Documentation'] },
   { id: 27, text: "Before planning a project, I think it's critical to first gather feedback from members to understand what they truly need.", dominant: 'Community Development', average: ['Academics'], less: ['Documentation'] },
-  { id: 28, text: "The idea of a competitive hackathon or a programming contest excites me.", dominant: 'Academics', average: ['Technology Development'], less: ['Sports & Talent'] },
+  { id: 28, text: "The idea of a competitive hackathon or a programming contest excites me.", dominant: 'Technology Development', average: ['Academics'], less: ['Sports & Talent'] },
   { id: 29, text: "I'm good at finding and sourcing the physical materials or supplies needed for a project, ensuring we have everything on time.", dominant: 'Logistics', average: ['Finance'], less: ['Technology Development'] },
-  { id: 30, text: "When it comes to fundraising, I tend to brainstorm ideas that are not just profitable but also fun and engaging for participants.", dominant: 'Finance', average: ['Community Development'], less: ['Sports & Talent'] },
-  { id: 31, text: "I believe a picture is worth a thousand words, and I enjoy telling a complete story through a series of photos or a video.", dominant: 'Documentation', average: ['Publicity'], less: ['Creatives & Technical'] },
-  { id: 32, text: "I am good at negotiating and formally representing a group's interests to an outside party, like a sponsor or another organization.", dominant: 'External Affairs', average: ['Finance'], less: ['Publicity', 'Logistics'] },
-  { id: 33, text: "I’m the person my friends come to for help with their computer problems or tech-related questions.", dominant: 'Technology Development', average: ['Community Development'], less: ['Logistics', 'Academics'] },
-  { id: 34, text: "I enjoy making a budget tracker to see where money comes from and where it goes.", dominant: 'Finance', average: ['External Affairs'], less: ['Academics'] },
+  { id: 30, text: "When it comes to fundraising, I tend to brainstorm ideas that are not just profitable but also fun and engaging for participants.", dominant: 'Finance', average: ['Community Development', 'Sports & Talent'] },
+  { id: 31, text: "I believe a picture is worth a thousand words, and I enjoy telling a complete story through a series of photos or a video.", dominant: 'Documentation', average: ['Creatives & Technical','Publicity'] },
+  { id: 32, text: "I am good at negotiating and formally representing a group's interests to an outside party, like a sponsor or another organization.", dominant: 'External Affairs', average: ['Finance', 'Publicity'], less: ['Logistics'] },
+  { id: 33, text: "I’m the person my friends come to for help with their computer problems or tech-related questions.", dominant: 'Technology Development', average: [], less: ['Logistics', 'Academics'] },
+  { id: 34, text: "I enjoy making a budget tracker to see where money comes from and where it goes.", dominant: 'Finance', average: ['Logistics'], less: ['External Affairs', 'Creatives & Technical'] },
   { id: 35, text: "After an event, I feel a responsibility to organize raw photos and edit videos into a polished final album or highlight reel.", dominant: 'Documentation', average: ['Technology Development'], less: ['Logistics'] },
   { id: 36, text: "I enjoy looking for opportunities by writing proposals and connecting with companies", dominant: 'External Affairs', average: ['Finance'], less: ['Publicity'] },
   { id: 37, text: "I enjoy researching a complex topic and summarizing it into an easy-to-understand presentation or article for others.", dominant: 'Academics', average: ['Documentation'], less: ['Sports & Talent'] },
   { id: 38, text: "I enjoy organizing photos and records so we don’t lose our group’s memories", dominant: 'Documentation', average: ['Logistics'], less: ['Community Development'] },
-  { id: 39, text: "I enjoy analyzing social media engagement (likes, shares, comments) to understand what content performs best.", dominant: 'Publicity', average: ['Finance'], less: ['External Affairs', 'Academics'] },
-  { id: 40, text: "I enjoy planning posts to get the right attention at the right time.", dominant: 'Publicity', average: ['Creatives & Technical'], less: ['Finance'] },
+  { id: 39, text: "I enjoy analyzing social media engagement (likes, shares, comments) to understand what content performs best.", dominant: 'Publicity', average: ['Finance', 'Technology Development'], less: ['External Affairs', 'Academics'] },
+  { id: 40, text: "I enjoy planning posts to get the right attention at the right time.", dominant: 'Publicity', average: ['Creatives & Technical'], less: ['Finance'] }
 ];
 
 const committeeDescriptions = {
@@ -77,6 +77,19 @@ const SCORE_MAP = {
 const QUESTIONS_PER_PAGE = 7;
 const TOTAL_PAGES = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
 
+const committeeImagePaths = {
+    'Academics': 'https://via.placeholder.com/150?text=Academics',
+    'Community Development': 'https://via.placeholder.com/150?text=CommDev',
+    'Creatives & Technical': 'https://via.placeholder.com/150?text=Creatives',
+    'Documentation': 'https://via.placeholder.com/150?text=Docu',
+    'External Affairs': 'https://via.placeholder.com/150?text=Externals',
+    'Finance': 'https://via.placeholder.com/150?text=Finance',
+    'Logistics': 'https://via.placeholder.com/150?text=Logistics',
+    'Publicity': 'https://via.placeholder.com/150?text=Pub',
+    'Sports & Talent': 'https://via.placeholder.com/150?text=Sports',
+    'Technology Development': 'https://via.placeholder.com/150?text=TechDev'
+};
+
 const HomePage = ({ onStartQuiz }) => {
     const leftCommittees = ['Academics', 'Community Development', 'Creatives & Technical', 'Publicity', 'External Affairs'];
     const rightCommittees = ['Documentation', 'Technology Development', 'Finance', 'Logistics', 'Sports & Talent'];
@@ -88,27 +101,28 @@ const HomePage = ({ onStartQuiz }) => {
 
     const CommitteeItem = ({ name }) => (
         <div className="committee-item">
-            <div className="committee-circle"></div>
+            <div className="committee-circle">
+                <img src={committeeImagePaths[name]} alt={name} />
+            </div>
             <p>{simplifyName(name)}</p>
         </div>
     );
 
     return (
         <div className="home-container">
-            <div className="home-mobile-placeholder">
-                <div className="committee-circle"></div>
-            </div>
-            
             <div className="committee-column left">
                 {leftCommittees.map(name => <CommitteeItem key={name} name={name} />)}
             </div>
 
             <div className="home-central-content">
-                <h1 className="home-title">Not Sure Which Committee You Belong To?</h1>
-                <p className="home-subtitle">Discover within minutes in which committee matches your skills, passions and goals</p>
-                <button className="btn btn-primary btn-find-out" onClick={onStartQuiz}>
-                    Find out my committee
-                </button>
+                <img src="assets/logos/Questions CSAR.png" alt="An illustration with a question mark, representing the quiz" className="home-main-image" />
+                <div className="home-text-content">
+                    <h1 className="home-title">Not Sure Which Committee You Belong To?</h1>
+                    <p className="home-subtitle">Discover within minutes in which committee matches your skills, passions and goals</p>
+                    <button className="btn btn-primary btn-find-out" onClick={onStartQuiz}>
+                        Find out my committee
+                    </button>
+                </div>
             </div>
 
             <div className="committee-column right">
@@ -234,9 +248,10 @@ const QuizApp = ({ onGoHome }) => {
 
 const AppHeader = ({ page, onTakeTest, onGoHome }) => {
     const isHomePage = page === 'home';
+    // Use correct relative path for images
     const Logo = () => (
         <img
-          src="assets/logos/Logo_CSS Apply.svg"
+          src="./assets/logos/Logo_CSS Apply.svg"
           alt="CSS Apply Logo"
           className="header-logo"
         />
@@ -251,11 +266,10 @@ const AppHeader = ({ page, onTakeTest, onGoHome }) => {
                     <Logo />
                 </button>
             )}
-            
             {isHomePage && (
               <div className="header-actions">
                 <a href="#/join" className="btn btn-primary btn-join">Join CSS</a>
-                <button className="btn btn-secondary btn-take-test" onClick={onTakeTest}>Take the Test</button>
+                <button className="btn btn-secondary btn-take-test" onClick={onTakeTest}>Take Test</button>
               </div>
             )}
         </header>
@@ -275,9 +289,17 @@ const ResultsPage = ({ answers, onRetake }) => {
             const answerValue = answers[q.id];
             if (answerValue && SCORE_MAP[answerValue]) {
                 const points = SCORE_MAP[answerValue];
-                scores[q.dominant] += points.dominant;
-                q.average.forEach(c => { scores[c] += points.average; });
-                q.less.forEach(c => { scores[c] += points.less; });
+                
+                // Handle single or multiple dominant committees
+                if (Array.isArray(q.dominant)) {
+                    q.dominant.forEach(c => { scores[c] += points.dominant; });
+                } else {
+                    scores[q.dominant] += points.dominant;
+                }
+
+                // Handle average and less, ensuring they are always treated as arrays
+                (q.average || []).forEach(c => { scores[c] += points.average; });
+                (q.less || []).forEach(c => { scores[c] += points.less; });
             }
         });
         
@@ -294,7 +316,7 @@ const ResultsPage = ({ answers, onRetake }) => {
             <h2>Your Results Are In!</h2>
             
             <div className="result-card-main">
-                <div className="result-image-placeholder-main" role="img" aria-label="Personality illustration"></div>
+                <img src={committeeImagePaths[topResult.committee]} alt={`${topResult.committee} committee illustration`} className="result-image-main" />
                 <h3>Your Primary Committee Fit is...</h3>
                 <h1 className="result-title-main">{topResult.committee}</h1>
                 <p>{committeeDescriptions[topResult.committee]}</p>
@@ -303,14 +325,14 @@ const ResultsPage = ({ answers, onRetake }) => {
             <h4>Other Committees You Might Enjoy</h4>
             <div className="other-results-grid">
                 <div className="result-card-other">
-                    <div className="result-image-placeholder-other" role="img" aria-label="Committee illustration"></div>
+                    <img src={committeeImagePaths[secondResult.committee]} alt={`${secondResult.committee} committee illustration`} className="result-image-other" />
                     <div className="result-content-other">
                         <h3>{secondResult.committee}</h3>
                         <p>{committeeDescriptions[secondResult.committee]}</p>
                     </div>
                 </div>
                  <div className="result-card-other">
-                    <div className="result-image-placeholder-other" role="img" aria-label="Committee illustration"></div>
+                    <img src={committeeImagePaths[thirdResult.committee]} alt={`${thirdResult.committee} committee illustration`} className="result-image-other" />
                     <div className="result-content-other">
                         <h3>{thirdResult.committee}</h3>
                         <p>{committeeDescriptions[thirdResult.committee]}</p>
@@ -330,7 +352,7 @@ const Footer = () => (
     <footer className="app-footer">
         <div className="footer-content">
             <div className="footer-main">
-                <img src="assets/logos/Logo_CSS.svg" alt="Computer Science Society Logo" className="footer-logo-img" />
+                <img src="./assets/logos/Logo_CSS.svg" alt="Computer Science Society Logo" className="footer-logo-img" />
                 <div className="footer-title">
                     Computer Science Society
                 </div>
