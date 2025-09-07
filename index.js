@@ -1,3 +1,7 @@
+const { createClient } = supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
 const { useState, useMemo, useEffect } = React;
 
 const COMMITTEES = [
@@ -49,17 +53,70 @@ const questions = [
   { id: 40, text: "I enjoy planning posts to get the right attention at the right time.", dominant: 'Publicity', average: ['Creatives & Technical'], less: ['Finance'] }
 ];
 
+const committeeFitReasons = {
+    Academics: "Your results reveal a true passion for learning and an incredible talent for making tough ideas click for others. You are not just a student, you are a mentor, a guide, and an inspiration. You believe growth is the path to success, making you the perfect leader to run tutorials, spark curiosity, and empower your peers to reach their full potential.",
+    'Community Development': "You are a natural connector and the heartbeat of every group you join. With your empathy and vision for togetherness, you thrive on creating spaces where everyone feels included and supported. You turn a group into a family, and your ability to bring people together makes you the ultimate community-builder.",
+    'Creatives & Technical': "You have both the eye and the execution, the artist and the engineer in one. Whether you are designing a poster that wows or setting up an event that runs flawlessly, you thrive on making visions a reality. You are essential to shaping the identity of the organization, bringing color, style, and innovation to everything we do.",
+    Documentation: "You know that moments fade, but memories live forever when captured beautifully. Your gift for photography, videography, and storytelling makes you the keeper of our history. You transform simple events into unforgettable stories that everyone can look back on with pride.",
+    'External Affairs': "You are bold, confident, and charismatic, a natural ambassador. You shine in networking, building partnerships, and unlocking opportunities that elevate the entire organization. With you as the face of the group, we do not just make connections, we create lasting alliances.",
+    Finance: "Numbers are your superpower. Your precision and sense of responsibility make you the perfect guardian of our resources. You see finance as more than balancing budgets, you see it as fueling dreams. Thanks to you, projects turn from ideas into reality, powered by your careful planning and oversight.",
+    Logistics: "You are the ultimate problem-solver who thrives on planning and execution. To you, details are not tedious, they are exciting challenges waiting to be mastered. From materials to schedules, you make sure every moving part fits together seamlessly. You are the reason everything works.",
+    Publicity: "You are a storyteller with impact. You know how to craft a message that not only informs but excites, inspires, and engages. You understand branding, buzz, and what makes people pay attention. You are the voice of the organization, and your words and strategies get the world talking.",
+    'Sports & Talent': "Energy, passion, and teamwork drive you forward. You believe in the power of friendly competition, creativity, and performance to build unity and joy. You turn events into celebrations of talent, giving every member a chance to shine.",
+    'Technology Development': "You are the innovator, the builder, and the forward-thinker. You do not just use technology, you explore it, improve it, and create with it. Your vision pushes the organization to grow smarter and more efficient, shaping the future with every tool you build."
+};
+
 const committeeDescriptions = {
-    Academics: "Dedicated to enhancing the academic environment, this committee organizes tutorials, reviewers, and academic events like quiz bees and programming contests.",
-    'Community Development': "Works to improve community well-being through social projects and events that foster civic engagement and empowerment.",
-    'Creatives & Technical': "Oversees all creative design, from digital graphics to event decor, and manages technical needs like sound and lighting for events.",
-    Documentation: "Responsible for photojournalism, this committee captures and preserves all organizational activities and memorable moments.",
-    'External Affairs': "Manages relationships with outside entities, including sponsors, other organizations, and the media, handling partnerships and public relations.",
-    Finance: "Oversees the organization's budget, expenditures, and revenue, ensuring fiscal responsibility and transparency through regular audits.",
-    Logistics: "Manages and maintains all organizational properties and keeps a thorough record of expenses related to activities and assets.",
-    Publicity: "Manages all promotional activities, including marketing strategies, social media platforms, and publicizing events to target audiences.",
-    'Sports & Talent': "Organizes all sports-related and talent activities, including events, workshops, and shows to help members develop and showcase their skills.",
-    'Technology Development': "Spearheads technology projects like the organization's website, implements new tech to streamline operations, and organizes tech-focused workshops."
+    Academics: [
+        'Organizes academic tutorials and review sessions for members.',
+        'Hosts engaging events like quiz bees and programming contests.',
+        'Focuses on enhancing the overall academic environment and growth.'
+    ],
+    'Community Development': [
+        'Plans social projects that foster civic engagement and empowerment.',
+        'Organizes events designed to build bonds and improve member well-being.',
+        'Acts as the heart of the organization, ensuring a supportive community.'
+    ],
+    'Creatives & Technical': [
+        'Oversees all creative design, from digital graphics to event decor.',
+        'Manages technical needs like sound, lighting, and streaming for events.',
+        'Shapes the visual and auditory identity of the organization.'
+    ],
+    Documentation: [
+        'Captures all organizational activities through photojournalism and videography.',
+        'Preserves memorable moments by creating highlight reels and photo albums.',
+        'Tells the story of the organization through compelling visual media.'
+    ],
+    'External Affairs': [
+        'Manages relationships with sponsors, media, and other organizations.',
+        'Handles partnerships, public relations, and formal representation.',
+        'Seeks out new opportunities and collaborations for the organization.'
+    ],
+    Finance: [
+        'Oversees the organization\'s budget, expenditures, and revenue streams.',
+        'Ensures fiscal responsibility and transparency through meticulous records.',
+        'Manages fundraising initiatives to power organizational projects.'
+    ],
+    Logistics: [
+        'Manages and maintains all physical properties and assets of the organization.',
+        'Coordinates the physical needs for events, including venues and materials.',
+        'Keeps a thorough record of expenses related to activities and assets.'
+    ],
+    Publicity: [
+        'Manages all social media platforms and promotional activities.',
+        'Develops marketing strategies to publicize events to target audiences.',
+        'Crafts the public voice and brand of the organization.'
+    ],
+    'Sports & Talent': [
+        'Organizes sports tournaments, workshops, and talent shows.',
+        'Provides outlets for members to develop and showcase their skills.',
+        'Promotes a balanced, active, and expressive community.'
+    ],
+    'Technology Development': [
+        'Spearheads tech projects like the organization\'s website and internal tools.',
+        'Implements new technology to streamline organizational operations.',
+        'Organizes tech-focused workshops and training for members.'
+    ]
 };
 
 const OPTIONS = [
@@ -78,16 +135,16 @@ const QUESTIONS_PER_PAGE = 7;
 const TOTAL_PAGES = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
 
 const committeeImagePaths = {
-    'Academics': 'https://via.placeholder.com/150?text=Academics',
-    'Community Development': 'https://via.placeholder.com/150?text=CommDev',
-    'Creatives & Technical': 'https://via.placeholder.com/150?text=Creatives',
-    'Documentation': 'https://via.placeholder.com/150?text=Docu',
-    'External Affairs': 'https://via.placeholder.com/150?text=Externals',
-    'Finance': 'https://via.placeholder.com/150?text=Finance',
-    'Logistics': 'https://via.placeholder.com/150?text=Logistics',
-    'Publicity': 'https://via.placeholder.com/150?text=Pub',
-    'Sports & Talent': 'https://via.placeholder.com/150?text=Sports',
-    'Technology Development': 'https://via.placeholder.com/150?text=TechDev'
+    'Academics': 'assets/committee_test/CSAR_ACADEMICS.png',
+    'Community Development': 'assets/committee_test/CSAR_COMMDEV.png',
+    'Creatives & Technical': 'assets/committee_test/CSAR_CREATIVES.png',
+    'Documentation': 'assets/committee_test/CSAR_DOCU.png',
+    'External Affairs': 'assets/committee_test/CSAR_EXTERNALS.png',
+    'Finance': 'assets/committee_test/CSAR_FINANCE.png',
+    'Logistics': 'assets/committee_test/CSAR_LOGISTICS.png',
+    'Publicity': 'assets/committee_test/CSAR_PUBLICITY.png',
+    'Sports & Talent': 'assets/committee_test/CSAR_SPOTA.png',
+    'Technology Development': 'assets/committee_test/CSAR_TECHDEV.png'
 };
 
 const HomePage = ({ onStartQuiz }) => {
@@ -109,26 +166,29 @@ const HomePage = ({ onStartQuiz }) => {
     );
 
     return (
-        <div className="home-container">
-            <div className="committee-column left">
-                {leftCommittees.map(name => <CommitteeItem key={name} name={name} />)}
-            </div>
+        <React.Fragment>
+            <div className="home-container">
+                <div className="committee-column left">
+                    {leftCommittees.map(name => <CommitteeItem key={name} name={name} />)}
+                </div>
 
-            <div className="home-central-content">
-                <img src="assets/logos/Questions CSAR.png" alt="An illustration with a question mark, representing the quiz" className="home-main-image" />
-                <div className="home-text-content">
-                    <h1 className="home-title">Not Sure Which Committee You Belong To?</h1>
-                    <p className="home-subtitle">Discover within minutes in which committee matches your skills, passions and goals</p>
-                    <button className="btn btn-primary btn-find-out" onClick={onStartQuiz}>
-                        Find out my committee
-                    </button>
+                <div className="home-central-content">
+                    <img src="assets\committee_test\Questions CSAR.png" alt="An illustration with a question mark, representing the quiz" className="home-main-image" />
+                    <div className="home-text-content">
+                        <h1 className="home-title">Not Sure Which Committee You Belong To?</h1>
+                        <p className="home-subtitle">The best way to find your passion and skills is to get involved and try things out!</p>
+                        <button className="btn btn-primary btn-find-out" onClick={onStartQuiz}>
+                            Find out my committee
+                        </button>
+                    </div>
+                </div>
+
+                <div className="committee-column right">
+                    {rightCommittees.map(name => <CommitteeItem key={name} name={name} />)}
                 </div>
             </div>
-
-            <div className="committee-column right">
-                {rightCommittees.map(name => <CommitteeItem key={name} name={name} />)}
-            </div>
-        </div>
+            <BackgroundIcons />
+        </React.Fragment>
     );
 };
 
@@ -186,7 +246,7 @@ const QuizApp = ({ onGoHome }) => {
     <React.Fragment>
       <div className="quiz-banner">
           <div className="quiz-header">
-              <h1>Committee Personality Test</h1>
+              <h1>Committee Test</h1>
               <p>Find your perfect committee in CSS!</p>
           </div>
       </div>
@@ -248,7 +308,6 @@ const QuizApp = ({ onGoHome }) => {
 
 const AppHeader = ({ page, onTakeTest, onGoHome }) => {
     const isHomePage = page === 'home';
-    // Use correct relative path for images
     const Logo = () => (
         <img
           src="./assets/logos/Logo_CSS Apply.svg"
@@ -277,161 +336,220 @@ const AppHeader = ({ page, onTakeTest, onGoHome }) => {
 };
 
 
+const ResultCard = ({ committee, isPrimary = false }) => {
+    const [view, setView] = useState('fit'); // 'fit' or 'duties'
+
+    useEffect(() => {
+        setView('fit'); // Reset to first page on committee change
+    }, [committee]);
+
+    if (!committee) return null;
+
+    const committeeName = committee.committee;
+
+    return (
+        <div className={`result-card-container ${isPrimary ? 'is-primary' : ''}`}>
+            <div className="result-card-header">
+                <div className={`result-image-wrapper ${isPrimary ? 'is-primary' : ''}`}>
+                    <img src={committeeImagePaths[committeeName]} alt={`${committeeName} committee illustration`} />
+                </div>
+                <div className="result-title-wrapper">
+                    {isPrimary && <h3>Your Primary Committee Fit is...</h3>}
+                    <h1 className={isPrimary ? 'result-title-main' : 'result-title-other'}>{committeeName}</h1>
+                </div>
+            </div>
+            <div className="result-card-body">
+                {view === 'fit' ? (
+                    <p className="fit-reason-text">{committeeFitReasons[committeeName]}</p>
+                ) : (
+                    <div className="committee-duties">
+                        <h4>Key Responsibilities:</h4>
+                        <ul>
+                            {committeeDescriptions[committeeName].map((duty, index) => (
+                                <li key={index}>{duty}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </div>
+            <div className="result-card-nav">
+                <button onClick={() => setView('fit')} disabled={view === 'fit'} aria-label="Show fit reason">
+                    <span className="nav-arrow" aria-label="Previous">&#60;</span>
+                </button>
+                <div className="nav-dots">
+                    <span className={`nav-dot ${view === 'fit' ? 'active' : ''}`}></span>
+                    <span className={`nav-dot ${view === 'duties' ? 'active' : ''}`}></span>
+                </div>
+                <button onClick={() => setView('duties')} disabled={view === 'duties'} aria-label="Show key responsibilities">
+                    <span className="nav-arrow" aria-label="Next">&#62;</span>
+                </button>
+            </div>
+        </div>
+    );
+};
+
+
 const ResultsPage = ({ answers, onRetake }) => {
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
 
-    const sortedResults = useMemo(() => {
-        const scores = COMMITTEES.reduce((acc, c) => ({...acc, [c]: 0}), {});
+    const quizData = useMemo(() => {
+        const rawScores = COMMITTEES.reduce((acc, c) => ({...acc, [c]: 0}), {});
 
         questions.forEach(q => {
             const answerValue = answers[q.id];
             if (answerValue && SCORE_MAP[answerValue]) {
                 const points = SCORE_MAP[answerValue];
                 
-                // Handle single or multiple dominant committees
                 if (Array.isArray(q.dominant)) {
-                    q.dominant.forEach(c => { scores[c] += points.dominant; });
+                    q.dominant.forEach(c => { rawScores[c] += points.dominant; });
                 } else {
-                    scores[q.dominant] += points.dominant;
+                    rawScores[q.dominant] += points.dominant;
                 }
 
-                // Handle average and less, ensuring they are always treated as arrays
-                (q.average || []).forEach(c => { scores[c] += points.average; });
-                (q.less || []).forEach(c => { scores[c] += points.less; });
+                (q.average || []).forEach(c => { rawScores[c] += points.average; });
+                (q.less || []).forEach(c => { rawScores[c] += points.less; });
             }
         });
         
-        return Object.entries(scores)
-            .map(([committee, score]) => ({ committee: committee, score }))
+        const sortedResults = Object.entries(rawScores)
+            .map(([committee, score]) => ({ committee, score }))
             .sort((a, b) => b.score - a.score);
+            
+        return { rawScores, sortedResults };
 
     }, [answers]);
 
+    useEffect(() => {
+        const submitResults = async () => {
+            const { rawScores, sortedResults } = quizData;
+            
+            if (!sortedResults || sortedResults.length < 3 || !supabaseClient) {
+                console.error("Not enough results or Supabase client not ready.");
+                return;
+            }
+
+            try {
+                const formatColumnName = (name) => 
+                    `score_${name.toLowerCase().replace(/ & /g, '_and_').replace(/ /g, '_')}`;
+
+                const scoresForDb = Object.entries(rawScores).reduce((acc, [committee, score]) => {
+                    acc[formatColumnName(committee)] = score;
+                    return acc;
+                }, {});
+
+                const submissionData = {
+                    top_committee: sortedResults[0].committee,
+                    second_committee: sortedResults[1].committee,
+                    third_committee: sortedResults[2].committee,
+                    ...scoresForDb
+                };
+
+                const { data, error } = await supabaseClient
+                    .from('quiz_submissions')
+                    .insert([submissionData]);
+
+                if (error) throw error;
+                
+                console.log('Successfully submitted detailed quiz results to Supabase:', data);
+
+            } catch (error) {
+                console.error('Error submitting quiz results to Supabase:', error.message);
+            }
+        };
+
+        submitResults();
+    }, [quizData]);
+
+    const { sortedResults } = quizData;
     const [topResult, secondResult, thirdResult] = sortedResults;
+    
+    if (!topResult) {
+        return <div className="results-container"><h2>Calculating your results...</h2></div>; 
+    }
 
     return (
-        <div className="results-container">
-            <h2>Your Results Are In!</h2>
-            
-            <div className="result-card-main">
-                <img src={committeeImagePaths[topResult.committee]} alt={`${topResult.committee} committee illustration`} className="result-image-main" />
-                <h3>Your Primary Committee Fit is...</h3>
-                <h1 className="result-title-main">{topResult.committee}</h1>
-                <p>{committeeDescriptions[topResult.committee]}</p>
-            </div>
+        <>
+            <div className="results-container">
+                <h2>Your Results Are In!</h2>
+                
+                <ResultCard committee={topResult} isPrimary={true} />
 
-            <h4>Other Committees You Might Enjoy</h4>
-            <div className="other-results-grid">
-                <div className="result-card-other">
-                    <img src={committeeImagePaths[secondResult.committee]} alt={`${secondResult.committee} committee illustration`} className="result-image-other" />
-                    <div className="result-content-other">
-                        <h3>{secondResult.committee}</h3>
-                        <p>{committeeDescriptions[secondResult.committee]}</p>
-                    </div>
+                <h4>Other Committees You Might Enjoy</h4>
+                <div className="other-results-grid">
+                    <ResultCard committee={secondResult} />
+                    <ResultCard committee={thirdResult} />
                 </div>
-                 <div className="result-card-other">
-                    <img src={committeeImagePaths[thirdResult.committee]} alt={`${thirdResult.committee} committee illustration`} className="result-image-other" />
-                    <div className="result-content-other">
-                        <h3>{thirdResult.committee}</h3>
-                        <p>{committeeDescriptions[thirdResult.committee]}</p>
-                    </div>
+
+                <div className="results-actions">
+                    <a href="#/apply" className="btn btn-primary">Join CSS Committee</a>
+                    <button className="btn btn-secondary" onClick={onRetake}>Retake the Test</button>
                 </div>
             </div>
-
-            <div className="results-actions">
-                <a href="#/apply" className="btn btn-primary">Join CSS Committee</a>
-                <button className="btn btn-secondary" onClick={onRetake}>Retake the Test</button>
-            </div>
-        </div>
+            <BackgroundIcons />
+        </>
     );
 }
 
 const Footer = () => (
-    <footer className="app-footer">
-        <div className="footer-content">
-            <div className="footer-main">
-                <img src="./assets/logos/Logo_CSS.svg" alt="Computer Science Society Logo" className="footer-logo-img" />
-                <div className="footer-title">
-                    Computer Science Society
+        <footer className="app-footer">
+            <div className="footer-content">
+                <div className="footer-main">
+                    <img src="./assets/logos/Logo_CSS.svg" alt="CSS Logo" className="footer-logo-img" />
+                    <div className="footer-title">Computer Science Society</div>
+                    <div className="footer-subtitle">The mother organization of the Computer Science Department</div>
+                    <div className="footer-copyright">© {new Date().getFullYear()} Computer Science Society. All rights reserved.</div>
                 </div>
-                <div className="footer-subtitle">
-                    The mother organization of the Computer Science Department
-                </div>
-                <div className="footer-copyright">
-                    © {new Date().getFullYear()} Computer Science Society. All rights reserved.
+                <div className="footer-contact">
+                    <div className="footer-contact-title">Partner with us:</div>
+                    <ul className="footer-contact-links">
+                        <li>
+                            <a href="mailto:css.cics@ust.edu.ph" target="_blank" rel="noopener noreferrer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20.1 4H4.9C3.855 4 3.0095 4.95625 3.0095 6.125L3 18.875C3 20.0438 3.855 21 4.9 21H20.1C21.145 21 22 20.0438 22 18.875V6.125C22 4.95625 21.145 4 20.1 4ZM20.1 8.25L12.5 13.5625L4.9 8.25V6.125L12.5 11.4375L20.1 6.125V8.25Z" fill="white"/></svg>
+                                <span>css.cics@ust.edu.ph</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/ustcss" target="_blank" rel="noopener noreferrer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none"><path d="M22.9167 12.4997C22.9167 6.74967 18.25 2.08301 12.5 2.08301C6.75004 2.08301 2.08337 6.74967 2.08337 12.4997C2.08337 17.5413 5.66671 21.7393 10.4167 22.708V15.6247H8.33337V12.4997H10.4167V9.89551C10.4167 7.88509 12.0521 6.24967 14.0625 6.24967H16.6667V9.37467H14.5834C14.0105 9.37467 13.5417 9.84343 13.5417 10.4163V12.4997H16.6667V15.6247H13.5417V22.8643C18.8021 22.3434 22.9167 17.9059 22.9167 12.4997Z" fill="white"/></svg>
+                                <span>UST Computer Science Society</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/ustcss" target="_blank" rel="noopener noreferrer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none"><path d="M16.6667 3.125C18.048 3.125 19.3728 3.67373 20.3495 4.65049C21.3263 5.62724 21.875 6.952 21.875 8.33333V16.6667C21.875 18.048 21.3263 19.3728 20.3495 20.3495C19.3728 21.3263 18.048 21.875 16.6667 21.875H8.33333C6.952 21.875 5.62724 21.3263 4.65049 20.3495C3.67373 19.3728 3.125 18.048 3.125 16.6667V8.33333C3.125 6.952 3.67373 5.62724 4.65049 4.65049C5.62724 3.67373 6.952 3.125 8.33333 3.125H16.6667ZM12.5 8.33333C11.3949 8.33333 10.3351 8.77232 9.55372 9.55372C8.77232 10.3351 8.33333 11.3949 8.33333 12.5C8.33333 13.6051 8.77232 14.6649 9.55372 15.4463C10.3351 16.2277 11.3949 16.6667 12.5 16.6667C13.6051 16.6667 14.6649 16.2277 15.4463 15.4463C16.2277 14.6649 16.6667 13.6051 16.6667 12.5C16.6667 11.3949 16.2277 10.3351 15.4463 9.55372C14.6649 8.77232 13.6051 8.33333 12.5 8.33333ZM17.1875 6.77083C16.9112 6.77083 16.6463 6.88058 16.4509 7.07593C16.2556 7.27128 16.1458 7.53623 16.1458 7.8125C16.1458 8.08877 16.2556 8.35372 16.4509 8.54907C16.6463 8.74442 16.9112 8.85417 17.1875 8.85417C17.4638 8.85417 17.7287 8.74442 17.9241 8.54907C18.1194 8.35372 18.2292 8.08877 18.2292 7.8125C18.2292 7.53623 18.1194 7.27128 17.9241 7.07593C17.7287 6.88058 17.4638 6.77083 17.1875 6.77083Z" fill="white"/></svg>
+                                <span>@ustcss</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div className="footer-contact">
-                <div className="footer-contact-title">Partner with us:</div>
-                <ul className="footer-contact-links">
-                    <li>
-                        <a href="mailto:css.cics@ust.edu.ph" target="_blank" rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <path d="M20.1 4H4.9C3.855 4 3.0095 4.95625 3.0095 6.125L3 18.875C3 20.0438 3.855 21 4.9 21H20.1C21.145 21 22 20.0438 22 18.875V6.125C22 4.95625 21.145 4 20.1 4ZM20.1 8.25L12.5 13.5625L4.9 8.25V6.125L12.5 11.4375L20.1 6.125V8.25Z" fill="white"/>
-                            </svg>
-                            <span>css.cics@ust.edu.ph</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/ustcss" target="_blank" rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 25 25" fill="white" aria-hidden="true">
-                                <path d="M22.9167 12.4997C22.9167 6.74967 18.25 2.08301 12.5 2.08301C6.75004 2.08301 2.08337 6.74967 2.08337 12.4997C2.08337 17.5413 5.66671 21.7393 10.4167 22.708V15.6247H8.33337V12.4997H10.4167V9.89551C10.4167 7.88509 12.0521 6.24967 14.0625 6.24967H16.6667V9.37467H14.5834C14.0105 9.37467 13.5417 9.84343 13.5417 10.4163V12.4997H16.6667V15.6247H13.5417V22.8643C18.8021 22.3434 22.9167 17.9059 22.9167 12.4997Z" />
-                            </svg>
-                            <span>UST Computer Science Society</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/ustcss" target="_blank" rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 25 25" fill="white" aria-hidden="true">
-                                <path d="M16.6667 3.125C18.048 3.125 19.3728 3.67373 20.3495 4.65049C21.3263 5.62724 21.875 6.952 21.875 8.33333V16.6667C21.875 18.048 21.3263 19.3728 20.3495 20.3495C19.3728 21.3263 18.048 21.875 16.6667 21.875H8.33333C6.952 21.875 5.62724 21.3263 4.65049 20.3495C3.67373 19.3728 3.125 18.048 3.125 16.6667V8.33333C3.125 6.952 3.67373 5.62724 4.65049 4.65049C5.62724 3.67373 6.952 3.125 8.33333 3.125H16.6667ZM12.5 8.33333C11.3949 8.33333 10.3351 8.77232 9.55372 9.55372C8.77232 10.3351 8.33333 11.3949 8.33333 12.5C8.33333 13.6051 8.77232 14.6649 9.55372 15.4463C10.3351 16.2277 11.3949 16.6667 12.5 16.6667C13.6051 16.6667 14.6649 16.2277 15.4463 15.4463C16.2277 14.6649 16.6667 13.6051 16.6667 12.5C16.6667 11.3949 16.2277 10.3351 15.4463 9.55372C14.6649 8.77232 13.6051 8.33333 12.5 8.33333ZM12.5 10.4167C13.0525 10.4167 13.5824 10.6362 13.9731 11.0269C14.3638 11.4176 14.5833 11.9475 14.5833 12.5C14.5833 13.0525 14.3638 13.5824 13.9731 13.9731C13.5824 14.3638 13.0525 14.5833 12.5 14.5833C11.9475 14.5833 11.4176 14.3638 11.0269 13.9731C10.6362 13.5824 10.4167 13.0525 10.4167 12.5C10.4167 11.9475 10.6362 11.4176 11.0269 11.0269C11.4176 10.6362 11.9475 10.4167 12.5 10.4167ZM17.1875 6.77083C16.9112 6.77083 16.6463 6.88058 16.4509 7.07593C16.2556 7.27128 16.1458 7.53623 16.1458 7.8125C16.1458 8.08877 16.2556 8.35372 16.4509 8.54907C16.6463 8.74442 16.9112 8.85417 17.1875 8.85417C17.4638 8.85417 17.7287 8.74442 17.9241 8.54907C18.1194 8.35372 18.2292 8.08877 18.2292 7.8125C18.2292 7.53623 18.1194 7.27128 17.9241 7.07593C17.7287 6.88058 17.4638 6.77083 17.1875 6.77083Z" fill="white" />
-                            </svg>
-                            <span>@ustcss</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+        </footer>
 );
 
 const BackgroundIcons = () => {
     const icons = [
-        // Code Brackets
         <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>,
-        // Book
         <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5C5.33 4.5 4.11 4.65 3 5V19c1.11.35 2.33.5 3.5.5 1.95 0 4.05-.4 5.5-1.5 1.45 1.1 3.55 1.5 5.5 1.5 1.17 0 2.39-.15 3.5-.5V5zM19 17c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5V6.5c1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5v11.5z"/></svg>,
-        // Clipboard
         <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>,
-        // Heart
         <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>,
-        // Star Outline
         <svg viewBox="0 0 24 24"><path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/></svg>,
-        // Sparkle
         <svg viewBox="0 0 24 24"><path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5L12 2z"/></svg>,
-        // Dot (Circle)
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>,
-        // Palette
         <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5s-2.24-5-5-5h-3.09c-.23-.64-.23-1.32 0-1.96C13.3 3.6 12.69 3 12 3zm-3 9c-.83 0-1.5.67-1.5 1.5S8.17 15 9 15s1.5-.67 1.5-1.5S9.83 12 9 12zm3-4c-.83 0-1.5.67-1.5 1.5S11.17 11 12 11s1.5-.67 1.5-1.5S12.83 8 12 8zm3 4c-.83 0-1.5.67-1.5 1.5S14.17 15 15 15s1.5-.67 1.5-1.5S15.83 12 15 12z"/></svg>,
-        // Speech Bubble
-        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" /></svg>,
-        // Camera
-        <svg viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-2a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>,
-        // Globe
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-.9-1.39-1.69-1.39h-1v-3c0-.55-.45-1-1-1h-2v-2h2c.55 0 1-.45 1-1V7h2c.55 0 1-.45 1-1V5.5c2.04 1.33 3.5 3.63 3.5 6.5 0 2.18-.94 4.14-2.4 5.49z"/></svg>,
-        // File
-        <svg viewBox="0 0 24 24"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/></svg>,
-        // Plus
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 7V3.5L18.5 9H13z"/></svg>,
         <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>,
+        <svg viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-2a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>,
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-.9-1.39-1.69-1.39h-1v-3c0-.55-.45-1-1-1h-2v-2h2c.55 0 1-.45 1-1V7h2c.55 0 1-.45 1-1V5.5c2.04 1.33 3.5 3.63 3.5 6.5 0 2.18-.94 4.14-2.4 5.49z"/></svg>,
     ];
 
     return (
         <div className="background-icons" aria-hidden="true">
             {icons.map((icon, i) => (
-                <span className="icon-wrapper" key={i}>
+                <div className="icon-wrapper" key={i}>
                     {icon}
-                </span>
+                </div>
             ))}
         </div>
     );
@@ -454,7 +572,6 @@ const App = () => {
                 )}
             </main>
             <Footer />
-            {page === 'home' && <BackgroundIcons />}
         </React.Fragment>
     );
 };
